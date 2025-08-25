@@ -1,0 +1,60 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form method="POST" action="{% url 'addbillingpost' %}">
+  {% csrf_token %}
+  <div class="container mt-3" style="max-width: 600px;">
+
+    <div class="mb-3">
+      <label for="patient" class="form-label">Patient:</label>
+      <select name="patient" id="patient" class="form-select" required>
+        <option value="" disabled selected>Select patient</option>
+        {% for p in patients %}
+          <option value="{{ p.id }}">{{ p.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount:</label>
+      <input type="text" class="form-control" id="amount" name="amount" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="invoice" class="form-label">Invoice No:</label>
+      <input type="text" class="form-control" id="invoice" name="invoice" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="service" class="form-label">Service:</label>
+      <input type="text" class="form-control" id="service" name="service" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status:</label>
+      <select name="status" id="status" class="form-select" required>
+        <option value="Pending">Pending</option>
+        <option value="Paid">Paid</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="insurance" class="form-label">Insurance:</label>
+      <input type="text" class="form-control" id="insurance" name="insurance">
+    </div>
+
+    <div class="mb-3">
+      <label for="date" class="form-label">Billing Date:</label>
+      <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="paymentdate" class="form-label">Payment Date (optional):</label>
+      <input type="date" class="form-control" id="paymentdate" name="paymentdate">
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Add Billing</button>
+  </div>
+</form>
+
+{% endblock %}

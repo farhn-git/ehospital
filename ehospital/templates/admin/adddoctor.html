@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="card shadow-lg p-4 rounded-4 mx-auto" style="max-width: 900px;">
+    <h2 class="mb-4 text-center text-primary">Add New Doctor</h2>
+    <form method="POST" action="{% url 'adddoctorpost' %}">
+      {% csrf_token %}
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="name" class="form-label fw-bold">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="specialization" class="form-label fw-bold">Specialization</label>
+          <input type="text" class="form-control" id="specialization" name="specialization" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="department" class="form-label fw-bold">Department</label>
+          <input type="text" class="form-control" id="department" name="department" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="phone" class="form-label fw-bold">Phone</label>
+          <input type="number" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="schedule" class="form-label fw-bold">Schedule</label>
+          <input type="text" class="form-control" id="schedule" name="schedule" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="username" class="form-label fw-bold">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+
+        <div class="col-md-6">
+          <label for="password" class="form-label fw-bold">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-lg px-5">Add Doctor</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

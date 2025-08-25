@@ -1,0 +1,90 @@
+{% extends 'patient/base.html' %}
+{% block content %}
+
+<div class="container mt-3">
+    <div class="card shadow-lg p-4 rounded-4">
+        <h2 class="mb-4 text-center">Medical Billing - {{ patient.name }}</h2>
+        <p><strong>Patient ID:</strong> {{ patient.id }}</p>
+
+
+        <div class="mb-4">
+            <h4>Billing Summary</h4>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Total Bills Generated: <strong>{{ bills|length }}</strong>
+                </li>
+                <li class="list-group-item">
+    Total Amount Due: <strong>₹{{ total_amount }}</strong>
+</li>
+
+                <li class="list-group-item">
+                    Last Payment Date:
+                    <strong>
+                        {% with last_payment=bills|dictsortreversed:"paymentdate"|first %}
+                            {% if last_payment.paymentdate %}{{ last_payment.paymentdate }}{% else %}-{% endif %}
+                        {% endwith %}
+                    </strong>
+                </li>
+                <li class="list-group-item">
+                    Insurance Provider: <strong>{{ bills.0.insurance|default:"N/A" }}</strong>
+                </li>
+            </ul>
+        </div>
+        <h4>Billing Records</h4>
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Invoice No.</th>
+                    <th>Date</th>
+                    <th>Services</th>
+                    <th>Amount (₹)</th>
+                    <th>Payment Status</th>
+                    <th>Payment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in bills %}
+                <tr>
+                    <td>{{ bill.invoice }}</td>
+                    <td>{{ bill.date }}</td>
+                    <td>{{ bill.service }}</td>
+                    <td>{{ bill.amount }}</td>
+                    <td>
+                        {% if bill.status == "Paid" %}
+                            <span class="badge bg-success">{{ bill.status }}</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">{{ bill.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if bill.paymentdate %}{{ bill.paymentdate }}{% else %}-{% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No billing records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <div class="mt-4">
+            <h4>Payment Options</h4>
+            <button class="btn btn-primary me-2">Pay Now</button>
+            <button class="btn btn-secondary me-2">Download Invoice</button>
+            <button class="btn btn-outline-info">View Insurance Claim Status</button>
+        </div>
+
+        <div class="mt-4">
+            <h4>Insurance Details</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Policy No: <strong>{{ bills.0.insurance|default:"N/A" }}</strong></li>
+                <li class="list-group-item">Coverage: <strong>80% of hospital bills</strong></li>
+                <li class="list-group-item">Status: <strong>Active</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

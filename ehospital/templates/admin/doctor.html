@@ -1,0 +1,42 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <a href="{% url 'adddoctor' %}" class="btn btn-primary mt-3 mb-3">Add Doctors</a>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">NAME</th>
+      <th scope="col">SPECIALIZATION</th>
+      <th scope="col">DEPARTMENT</th>
+      <th scope="col">PHONE</th>
+      <th scope="col">SCHEDULE</th>
+      <th scope="col">(USERNAME-PASSWORD)</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in data %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ i.name }}</td>
+      <td>{{ i.specialization }}</td>
+      <td>{{ i.department }}</td>
+      <td>{{ i.phone }}</td>
+      <td>{{ i.schedule }}</td>
+      <td>({{ i.LOGIN.username }}-{{ i.LOGIN.password }})</td>
+      <td>
+        <a href="{% url 'editdoctor' i.id %}" class="btn btn-info">Edit</a>
+        <a href="{% url 'deldoc' i.id %}" class="btn btn-danger">REMOVE</a></td>
+
+    </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

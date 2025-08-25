@@ -1,0 +1,66 @@
+{% extends 'doctor/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-md-8">
+      <h2 class="mb-4">Patient Details</h2>
+
+      <!-- Patient Info -->
+      <div class="mb-2"><span class="fw-bold">Name:</span> {{ patient.name }}</div>
+      <div class="mb-2"><span class="fw-bold">ID:</span> {{ patient.id }}</div>
+      <div class="mb-2"><span class="fw-bold">Age:</span> {{ patient.age }}</div>
+      <div class="mb-2"><span class="fw-bold">Gender:</span> {{ patient.gender }}</div>
+      <div class="mb-2"><span class="fw-bold">Blood Group:</span> {{ patient.bloodgroup }}</div>
+      <div class="mb-4"><span class="fw-bold">Contact:</span> {{ patient.phone }}</div>
+
+      <!-- Medical History Table -->
+      <h4 class="mb-3">Medical History</h4>
+      {% if data %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">DATE</th>
+            <th scope="col">DIAGNOSIS</th>
+            <th scope="col">MEDICATIONS</th>
+            <th scope="col">ALLERGIES</th>
+            <th scope="col">TREATMENTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}
+          <tr>
+            <td>{{ i.date }}</td>
+            <td>{{ i.diagnosis }}</td>
+            <td>{{ i.medication }}</td>
+            <td>{{ i.allergies }}</td>
+            <td>{{ i.treatments }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <p class="text-muted">No medical history found for this patient.</p>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Current Medications -->
+    <div class="col-md-4">
+      <h4 class="mb-3">Current Medications</h4>
+      {% if data %}
+      <ul class="list-group">
+        {% for i in data %}
+          {% if record.medication %}
+            <li class="list-group-item">{{ i.medication }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p class="text-muted">No medications found.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

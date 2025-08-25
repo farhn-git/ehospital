@@ -1,0 +1,39 @@
+{% extends 'patient/base.html' %}
+{% block content %}
+
+<form method="POST" action="{% url 'editbookingpost' data.id %}">
+  {% csrf_token %}
+  <div class="container mt-5" style="max-width: 600px;">
+
+    <div class="mb-3">
+      <label for="date" class="form-label">Date:</label>
+      <input type="date" class="form-control" id="date" name="date" value="{{ data.date }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="time" class="form-label">Time:</label>
+      <input type="time" class="form-control" id="time" name="time" value="{{ data.time }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="doctor" class="form-label">Doctor:</label>
+      <select class="form-select" id="doctor" name="doctor" required>
+        {% for doc in doctors %}
+          <option value="{{ doc.id }}" {% if doc.id == data.DOCTORS.id %}selected{% endif %}>
+            {{ doc.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status:</label>
+      <input type="text" class="form-control" id="status" name="status"
+             value="{{ data.status }}" readonly>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Update Appointment</button>
+  </div>
+</form>
+
+{% endblock %}

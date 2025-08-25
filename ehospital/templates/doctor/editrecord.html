@@ -1,0 +1,35 @@
+{% extends 'doctor/base.html' %}
+{% block content %}
+
+<form method="POST" action="{% url 'editrecordpost' data.id %}">
+  {% csrf_token %}
+  <div class="container mt-5" style="max-width: 600px;">
+
+    <div class="mb-3">
+      <label for="diagnosis" class="form-label">diagnosis:</label>
+      <input type="text" class="form-control" id="diagnosis" name="diagnosis" value="{{ data.diagnosis }}" required>
+    </div>
+
+        <div class="mb-3">
+      <label for="medication" class="form-label">medication:</label>
+      <input type="text" class="form-control" id="medication" name="medication" value="{{ data.medication }}" required>
+    </div>
+        <div class="mb-3">
+      <label for="allergies" class="form-label">allergies:</label>
+      <input type="text" class="form-control" id="allergies" name="allergies" value="{{ data.allergies }}" required>
+    </div>
+        <div class="mb-3">
+      <label for="treatments" class="form-label">treatments:</label>
+      <input type="text" class="form-control" id="treatments" name="treatments" value="{{ data.treatments }}" required>
+    </div>
+        <div class="mb-3">
+      <label for="date" class="form-label">Date:</label>
+      <input type="date" class="form-control" id="date" name="date" value="{{ data.date }}" required>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary w-100">Update Appointment</button>
+  </div>
+</form>
+
+{% endblock %}

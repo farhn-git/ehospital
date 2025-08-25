@@ -1,0 +1,47 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<div class="container mt-3">
+  <a href="{% url 'addbilling' %}" class="btn btn-primary mt-3 mb-3">Add Billings</a>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+        <th scope="col">INVOICE_NO</th>
+      <th scope="col">DATE</th>
+        <th scope="col">PATIENT</th>
+      <th scope="col">AMOUNT</th>
+      <th scope="col">PAYMENT_STATUS</th>
+      <th scope="col">PAYMENT_DATE</th>
+      <th scope="col">INSURANCE</th>
+      <th scope="col">SERVICE</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in data %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ i.invoice }}</td>
+      <td>{{ i.date }}</td>
+      <td>{{ i.PATIENT.name }}</td>
+      <td>{{ i.amount }}</td>
+      <td>{{ i.status }}</td>
+      <td>{{ i.paymentdate }}</td>
+      <td>{{ i.insurance }}</td>
+      <td>{{ i.service }}</td>
+
+      <td>
+        <a href="{% url 'editbilling' i.id %}" class="btn btn-info">Edit</a>
+        <a href="{% url 'delbill' i.id %}" class="btn btn-danger">DEL</a></td>
+
+    </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+</table>
+</div>
+{% endblock %}
+

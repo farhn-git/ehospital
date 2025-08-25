@@ -1,0 +1,60 @@
+<style>
+  body {
+  padding-top: 70px;
+}
+  .custom-navbar {
+    background-color: #0d6efd;
+  }
+  .custom-navbar .nav-link,
+  .custom-navbar .navbar-brand {
+    color: #ffffff !important;
+  }
+  .custom-navbar .nav-link:hover {
+    color: #ffc107 !important;
+  }
+  .logout-btn {
+    background: #dc3545;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 5px 12px;
+    text-decoration: none;
+  }
+  .logout-btn:hover {
+    background: #bb2d3b; /* Darker red on hover */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Patient Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+      <!-- Left side navigation -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'bookings' %}">Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'history' %}">History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'billing' %}">Billing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'info' %}">Info</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>

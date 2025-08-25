@@ -1,0 +1,51 @@
+{% extends 'doctor/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <h3 class="mb-4">Manage Appointments</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Patient</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in data %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ i.date }}</td>
+        <td>{{ i.time }}</td>
+        <td>{{ i.PATIENTS.name }}</td>
+        <td>
+          {% if i.status == "Pending" %}
+            <span class="badge bg-warning text-dark">{{ i.status }}</span>
+          {% elif i.status == "Approved" %}
+            <span class="badge bg-success">{{ i.status }}</span>
+          {% elif i.status == "Cancelled" %}
+            <span class="badge bg-danger">{{ i.status }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ i.status }}</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'approveappoint' i.id %}" class="btn btn-success btn-sm"
+             onclick="return confirm('Approve this appointment?');">Approve</a>
+          <a href="{% url 'cancelappoint' i.id %}" class="btn btn-danger btn-sm"
+             onclick="return confirm('Cancel this appointment?');">Cancel</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">No appointments found.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

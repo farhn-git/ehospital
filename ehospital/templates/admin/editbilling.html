@@ -1,0 +1,68 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<form method="POST" action="{% url 'editbillingpost' data.id %}">
+  {% csrf_token %}
+  <div class="container mt-4" style="max-width: 900px;">
+    <h3 class="mb-3">Edit Billing — {{ data.invoice }}</h3>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="patient" class="form-label">Patient</label>
+        <select id="patient" name="patient" class="form-select" required>
+          {% for p in patient %}
+            <option value="{{ p.id }}" {% if p.id == data.PATIENT.id %}selected{% endif %}>
+              {{ p.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="text" id="amount" name="amount" class="form-control" value="{{ data.amount }}" required>
+      </div>
+
+      <div class="col-md-3">
+        <label for="invoice" class="form-label">Invoice No.</label>
+        <input type="text" id="invoice" name="invoice" class="form-control" value="{{ data.invoice }}" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="service" class="form-label">Service</label>
+        <input type="text" id="service" name="service" class="form-control" value="{{ data.service }}" required>
+      </div>
+
+      <div class="col-md-3">
+        <label for="status" class="form-label">Status</label>
+        <select id="status" name="status" class="form-select" required>
+          <option value="Pending" {% if data.status == 'Pending' %}selected{% endif %}>Pending</option>
+          <option value="Paid" {% if data.status == 'Paid' %}selected{% endif %}>Paid</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="insurance" class="form-label">Insurance</label>
+        <input type="text" id="insurance" name="insurance" class="form-control" value="{{ data.insurance }}">
+      </div>
+
+      <div class="col-md-3">
+        <label for="date" class="form-label">Billing Date</label>
+        <input type="date" id="date" name="date" class="form-control" value="{{ data.date|date:'Y-m-d' }}" required>
+      </div>
+
+      <div class="col-md-3">
+        <label for="paymentdate" class="form-label">Payment Date (optional)</label>
+        <input type="date" id="paymentdate" name="paymentdate" class="form-control"
+               value="{% if data.paymentdate %}{{ data.paymentdate|date:'Y-m-d' }}{% endif %}">
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <a href="{% url 'viewbilling' %}" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

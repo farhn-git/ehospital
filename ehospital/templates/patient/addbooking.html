@@ -1,0 +1,32 @@
+{% extends 'patient/base.html' %}
+{% block content %}
+
+<form method="POST" action="{% url 'addbookingpost' %}">
+  {% csrf_token %}
+  <div class="container mt-5" style="max-width: 600px;">
+
+    <div class="mb-3">
+      <label for="date" class="form-label">Date:</label>
+      <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="time" class="form-label">Time:</label>
+      <input type="time" class="form-control" id="time" name="time" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="doctor" class="form-label">Doctor:</label>
+      <select name="doctor" id="doctor" class="form-select" required>
+        <option value="" disabled selected>Select doctor</option>
+        {% for i in data %}
+          <option value="{{ i.id }}">{{ i.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
+  </div>
+</form>
+
+{% endblock %}
