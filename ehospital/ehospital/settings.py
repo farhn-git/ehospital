@@ -77,10 +77,11 @@ WSGI_APPLICATION = 'ehospital.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ehospital',
-        'USER': 'root',
-        'PORT': '3308',
-        'HOST': 'localhost',
+        'NAME': 'farhanp$default',
+        'USER': 'farhanp',
+        'PASSWORD': 'dbfar123',
+        'PORT': '3306',
+        'HOST': 'farhanp.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -128,4 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
